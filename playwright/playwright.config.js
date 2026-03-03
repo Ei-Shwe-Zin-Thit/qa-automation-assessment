@@ -22,12 +22,14 @@ const config = {
 				...devices["Desktop Chrome"],
 				viewport: { width: 1280, height: 720 },
 				channel: "chrome",
+				headless: false,
 			},
 		},
 		{
 			name: "Mobile Safari",
 			use: {
 				...devices["iPhone 15"],
+				headless: false,
 			},
 			grepInvert: /@desktopOnly/, // This excludes tests tagged with @desktopOnly
 		},
@@ -35,14 +37,16 @@ const config = {
 	reporter: [["list"], ["html", { outputFolder: "test-results" }]],
 	use: {
 		baseURL: process.env.BASE_URL || "https://metro.co.uk",
+		trace: 'on', 
+		launchOptions: { slowMo: 250 },
 		// Set browser data to emulate a London location.
 		geolocation: { longitude: 0.1933, latitude: 51.501 },
 		locale: "en-GB",
 		timezoneId: "Europe/London",
 		// Send an extra header for each request so we can identify it in the logs.
-		extraHTTPHeaders: {
-			"X-QA-Test": "playwright",
-		},
+		// extraHTTPHeaders: {
+		// 	"X-QA-Test": "playwright",
+		// },
 	},
 };
 
